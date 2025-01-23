@@ -1,0 +1,313 @@
+---
+title: "Palmer Penguins Initial Analysis"
+author: "Caroline Choiniere"
+format: html
+editor: visual
+execute:
+  keep-md: true
+---
+
+## Palmer Penguins
+
+Creating and rendering a Quarto document containing an analysis on the palmerpenguins data into a reproducible report. Then making a local repository in GitHub.
+
+```{r}
+library(tidyverse)
+penguins<-read_csv("https://raw.githubusercontent.com/mcduryea/Intro-to-Bioinformatics/main/data/penguins_samp1.csv")
+penguins %>% head()
+```
+
+We loaded the tidyverse, read the penguins_samp1 csv data file from Dr. Duryea github and then ran a line to see the first six rows of the data read into the Quarto notebook.
+
+## Data Manipulation
+
+Learning how to manipulate R code to manipulate data. Focusing on filtering rows, subset columns, group data, and compute summary statistics. Side focus is narrating/explaining the workflow during this assignment with a specific interest in using tidy analyses in R with Palmer Penguins data.
+
+-   are there other islands in this data set that have comparison data from the same species?
+
+-   is there a positive/negative correlation between body mass and the other body characteristics?
+
+-   are there trends present in the data frame that would allow for further research?
+
+### DM and Summarization
+
+Building frequency tables in R with the count() to summarize categorical variables. Numerical variables more options, measures of average and measures of spread.
+
+counts for categorical data (forgot to load the tidyverse library and need to pay more attention to capitalizations)
+
+```{r}
+penguins %>% 
+  count(island)
+penguins %>%
+  count(island)
+library(tidyverse)
+penguins %>% 
+  count(island)
+```
+
+Interpret the output: There are three islands with specific numbers of penguins on each represented in the "n" column in this frequency table.
+
+```{r}
+penguins %>%
+  count(species)
+```
+
+Interpret the output: there are three species, and Gentoo species of penguins appear to have the highest population in this frequency table.
+
+```{r}
+penguins %>% count(island, species)
+```
+
+ITO: Three islands with species shown in a frequency graph. Biscoe has the highest number of individuals, Torgerson follows, and Dream has the lowest number of penguin species. Chinstrap are present only on Dream, Adelie are present on all three islands and Gentoo are present on Biscoe only.
+
+#### Practicing more readable versions of output
+
+```{r}
+penguins %>% 
+  count(island, species) %>%
+  pivot_wider(names_from = species, values_from = n, values_fill = 0)
+```
+
+Pro tip: When installing kableExtra use the "".
+
+```{r}
+library(kableExtra)
+penguins %>%
+  count(island, species) %>%
+  pivot_wider(names_from = species, values_from = n, values_fill = 0) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+```
+
+### Summaries for Numerical Data
+
+Measures of center, spread/other metric
+
+```{r}
+penguins %>%
+  summarize(mean_bill_length_mm = mean(bill_length_mm))
+```
+
+Missing values, if we try to compute quantity, result will be NA because some of the values are missing. Code below tells R to ignore NA values.
+
+```{r}
+penguins %>%
+  summarize(mean_bill_length_mm = mean(bill_length_mm, na.rm = TRUE))
+```
+
+Including the median, standard deviation, minimum, 25th percentile, 75th percentile, maximum bill lengths.
+
+```{r}
+penguins %>%
+  summarize(
+    min_bill_length = min(bill_length_mm, na.rm = TRUE),
+    first_quartile_bill_length = quantile(bill_length_mm, 0.25, na.rm = TRUE),
+    median_bill_length = median(bill_length_mm, na.rm = TRUE),
+    mean_bill_length_mm = mean(bill_length_mm, na.rm = TRUE),
+    third_quartile_bill_length = quantile(bill_length_mm, 0.75, na.rm = TRUE),
+    standard_deviation_bill_length = sd(bill_length_mm, na.rm = TRUE)
+    ) %>%
+  pivot_longer(cols = everything())
+```
+
+Last line pivot_longer, converts table from being very wide to long table. Cannot currently get the kable() to work.
+
+## Selecting Specific Rows and Columns
+
+Can select specific columns using select() or rows satisfying certain conditions using filter(). Can select only the species, island, sex and year columns.
+
+```{r}
+penguins %>%
+  select(species, island, sex, year)
+```
+
+Can also filter() dataset for only Chinstrap penguins.
+
+```{r}
+penguins %>%
+  select(species, island, sex, year) %>%
+  filter(species == "Chinstrap")
+```
+
+Showing how to deselect columns using the select() func and - sign in front of column name. Makes a smaller data frame. Troubleshooting was needed when copying code from the document as the object was not recognized, the object name threw errors until the name was changed to "Chinstrap %\>%"
+
+```{r}
+Chinstrap <- penguins %>%
+  select(species, island, sex, year) %>%
+  filter(species == "Chinstrap") %>%
+  select(-species)
+Chinstrap %>%
+  head()
+```
+
+### Grouping and Summarizing Groups
+
+Using group_by() and summarize() to compare summary statistics across groups. I used the bill_depth_mm to compare the average and standard deviation across species group and also to practice grouping and summarize groups.
+
+```{r}
+penguins %>%
+  group_by(species) %>%
+  summarise(
+    mean_bill_depth_mm = mean(bill_depth_mm, na.rm = TRUE),
+    sd_bill_depth_mm = sd(bill_depth_mm, na.rm = TRUE)
+  )
+```
+
+IOD: Chinstrap has the largest mean bill depth, followed by Adelie, and Gentoo. Chinstrap has the largest standard deviation, while Gentoo has the second largest STD with the smallest mean bill depth. Adelie has the smallest STD with the second largest mean bill depth. The larger STD has more variable bill lengths, and probably a broader distribution curve. The smaller STD (Adelie) may have a less broad distribution curve and less of a variation on bill depth than the Chinstrap or Gentoo.
+
+### Data visualization with ggplot()
+
+#### Using one category variable: ex uses a barplot.
+
+```{r}
+penguins %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = species)) +
+  labs(title ="Counts of Penguin Species",
+       x = "Species", y = "Count")
+```
+
+Data visualization with one categorical variable using ggplot(). Using a barplot, the visual shows that Gentoo have the largest individuals count per species, with Adelie and then Chinstrap. The + is being used to connect and add additional layers to the function. Allows for ggplot to be customized based on layer function and at what step the layer function is being added.
+
+```{r}
+penguins %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = flipper_length_mm)) +
+  labs(title ="Counts of Flipper Length in mm",
+       x = "flipper_length_mm", y = "Count")
+```
+
+Will need to label the species for each flipper length and group these variables to get further information out of the data visualization.
+
+#### One numerical variable: using histogram (geom_histogram()), density (geom_density()), boxplot (geom_boxplot()).
+
+```{r}
+penguins %>%
+  ggplot() +
+  geom_histogram(mapping = aes(x = bill_length_mm), color = "white", fill = "blue") + 
+  labs(title ="Distribution of Bill Lengths", x = "Bill Length (mm)", y = "Count")
+```
+
+There is some confusion when looking to see what the bill length is as these values have multiple significant figures to increase precision for bill length measurement. The histogram shows visual distribution well and is able to be understood at a glance.
+
+Changing to a boxplot does not give further information as the distribution is gone. The histogram is better with visual distribution as the columns show count clearly, while the density visual is the best at showing the distribution of bill lengths but is slightly lacking in finding the count quickly.
+
+```{r}
+penguins %>%
+  ggplot() +
+  geom_density(mapping = aes(x = bill_length_mm),
+                 color = "white",
+                 fill = "blue") +
+  labs(title ="Distribution of Bill Lengths",
+       x = "Bill Length (mm)", y = "Count")
+```
+
+#### Two Numerical Variables: exploring relationship with a scatterplot
+
+```{r}
+penguins%>%
+  ggplot() + 
+  geom_point(mapping = aes(x = bill_depth_mm, y = bill_length_mm)) +
+  labs(title = "Bill Depth and Length", x = "Bill Depth (mm)", y = "Bill Length (mm)")
+```
+
+There is higher density around bill depth/length 16, 50.
+
+Flipper length vs body mass. Wanted to see if there was a potential relationship.
+
+```{r}
+penguins %>%
+  ggplot() +
+  geom_point(mapping = aes(x = flipper_length_mm, y = body_mass_g)) +
+  labs(title = "Flipper Length and Body Mass",
+       x = "Flipper Length (mm)",
+       y = "Body Mass (g)")
+```
+
+#### Two Categorical Variables: relationships between pairs of categorical variables w barplots and fill.
+
+```{r}
+penguins %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = island, fill = species)) +
+  labs(title = "Species by Island", x = "Island", y = "Species")
+```
+
+Great visualization. Can see the adding of the function working to construct the different associations between two categorical variables in the layers present. The lowercase 'species' could. potentially be changed but then the object would throw an error and not be found?
+
+#### One Numerical and One Categorical Variable: visualization to compare numerical and categorical variables using boxplots or faceted plots.
+
+```{r}
+penguins %>%
+  ggplot() +
+  geom_boxplot(mapping = aes(x = bill_depth_mm, y = species)) +
+  labs(title = "Bill Depth by Species", x = "Bill Depth (mm)", y = "")
+```
+
+```{r}
+penguins %>%
+  ggplot() +
+  geom_histogram(mapping = aes(x = bill_length_mm)) +
+  facet_wrap(~species, ncol = 1) +
+  labs(title = "Bill Depth by Species", x = "Bill Depth (mm)", y = "")
+```
+
+The histogram is less specific and shows the visual spread and the range-count. The boxplot is visually specific and displays data using the five-number summary.
+
+### Advanced Plotting: building more complex plots
+
+```{r}
+penguins %>%
+  filter(!is.na(sex)) %>%
+  ggplot() +
+  geom_point(mapping = aes(x = bill_length_mm, 
+                           y = flipper_length_mm,
+                           color = species,
+                           shape = sex)) +
+  geom_smooth(mapping = aes(x = bill_length_mm,
+                            y = flipper_length_mm,
+                            color = species),
+              method = "lm") +
+  facet_grid(island ~ sex, scales = "free") +
+  labs(title = "Flipper and Bill Lengths by Species and Sex",
+       x = "Bill Length (mm)",
+       y = "Flipper Length(mm)") +
+  theme_light()
+```
+
+Breaking down the code,
+
+-   filter is keeping the rows that fit the function, and is searching for missing variables, the ! in R stands for not, so it is saying to filter not applicable missing variable sex.
+
+-   ggplot creates a scatterplot,
+
+-   geom_point creates a scatterplot and overlays a loess trendline. geom_smooth overlays the data and creates the shadow visuals on the data frame. 'Aes' functions in the () are a static aesthetic that apply to the layer. scale to show the data being represented on the graph. Color and shape are another scale pair.
+
+-   facet_grid breaks down the smaller subsets of data, seeing this where the facet is comparing island \~ sex.
+
+-   labs is labeling and titling everything in the visual.
+
+-   theme_light works with the visual of the plot and controls the coloration, and customizations.
+
+## Final Question:
+
+The average bill length is 46.37 mm, and does exceed 45 mm. I am only able to answer for a subset of penguins as this data is based on the three species across an area of three islands. I am certain that the average length of bills exceeds 45 mm in this subset of penguins.
+
+### Summary
+
+-   Are there other islands in this data set that have comparison data from the same species?
+
+    -   Cannot answer this with current data.
+
+-   Is there a positive or negative correlation between body mass and the other body characteristics?
+
+    -   Positive correlation between body mass and flipper length. Other body characteristics will have to be run to determine if there is any correlation.
+
+```{r}
+penguins %>%
+  ggplot() +
+  geom_point(mapping = aes(x = flipper_length_mm, y = body_mass_g)) + 
+  labs(title = "Flipper Length and Body Mass",
+       x = "Flipper Length (mm)",
+       y = "Body Mass (g)")
+```
