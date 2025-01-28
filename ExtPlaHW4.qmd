@@ -1,0 +1,88 @@
+---
+title: "Extinct Plants HW 4"
+format: html
+editor: visual
+---
+
+# Extinct Plants HW 4 
+
+## Adding/Reading Data into Notebook
+
+Splitting an available data set into an exploratory and test set to test inferential claims. Then conducting an exploratory analysis using exploratory set to generate some hypotheses. Chose to do the extinct plants data set on GitHub.
+
+```{r}
+plants <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-08-18/plants.csv')
+actions <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-08-18/actions.csv')
+threats <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-08-18/threats.csv')
+```
+
+Opened tidyverse, and then read data into quarto notebook.
+
+```{r}
+library(tidyverse)
+```
+
+Split data into exploratory and test data using code below. Did make the mistake of not deciding which environment to use (e.g. plants) but rectified this.
+
+```{r}
+#install.packages("tidymodels")
+library(tidymodels)
+
+my_data_splits <- initial_split(plants, prop = 0.5)
+
+exploratory_data <- training(my_data_splits)
+test_data <- testing(my_data_splits)
+```
+
+```{r}
+```
+
+# Questions to investigate
+
+#### Are there trends in binomial name where some plants across genus are more susceptible and does this translate to other locations? \> 
+
+#### Do climates contribute to the stressors associated with extinction in Asia or in other countries that share extinct plant range? \> 
+
+#### If there are reasons for plant extinction do they link to social or economic activity or is a main cause environment? 
+
+#### In higher stress scenarios, do the secondary metabolites activated cause chemical signals to activate in other plants and insects and in turn stress out other plants in the environment.
+
+# Data Exploration
+
+#### Going to try and do a count for categorical data and create a frequency table for the country variable. 
+
+```{r}
+plants %>%
+  count(country)
+```
+
+Going to try and install and run the kableExtra package to see if I can make it look nicer. Made it look nicer but there is too much going on to get a clear read of the table. Let's try graphing it.
+
+```{r}
+library(kableExtra)
+plants %>%
+  count(country, continent) %>%
+  pivot_wider(names_from = continent, values_from = n, values_fill = 0) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+```
+
+Going to try to use ggplot() to show the amount of extinct plants per country using one categorical variable. Once executed, has too many countries, so I am going to try and put a limiter on the count to see what countries have the highest and lowest number of extinct plant species.
+
+Actually I am going to switch it to continent for clarity.
+
+```{r}
+plants %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = country)) +
+  labs(title ="Counts of Extinct Plant Species",
+       x = "country", y = "Count")
+```
+
+```{r}
+plants %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = continent)) +
+  labs(title ="Counts of Extinct Plant Species by Continent",
+       x = "Continent", y = "Count")
+```
