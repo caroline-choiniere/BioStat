@@ -4,8 +4,6 @@ format: html
 editor: visual
 ---
 
-# Extinct Plants HW 4 
-
 ## Adding/Reading Data into Notebook
 
 Splitting an available data set into an exploratory and test set to test inferential claims. Then conducting an exploratory analysis using exploratory set to generate some hypotheses. Chose to do the extinct plants data set on GitHub.
@@ -39,17 +37,17 @@ test_data <- testing(my_data_splits)
 
 # Questions to investigate
 
-#### Are there trends in binomial name where some plants across genus are more susceptible and does this translate to other locations? \> 
+#### Are there trends in binomial name where some plants across genus are more susceptible and does this translate to other locations? \>
 
-#### Do climates contribute to the stressors associated with extinction in Asia or in other countries that share extinct plant range? \> 
+#### Do climates contribute to the stressors associated with extinction in Asia or in other countries that share extinct plant range? \>
 
-#### If there are reasons for plant extinction do they link to social or economic activity or is a main cause environment? 
+#### If there are reasons for plant extinction do they link to social or economic activity or is a main cause environment?
 
 #### In higher stress scenarios, do the secondary metabolites activated cause chemical signals to activate in other plants and insects and in turn stress out other plants in the environment.
 
 # Data Exploration
 
-#### Going to try and do a count for categorical data and create a frequency table for the country variable. 
+#### Going to try and do a count for categorical data and create a frequency table for the country variable.
 
 ```{r}
 plants %>%
@@ -74,6 +72,19 @@ Actually I am going to switch it to continent for clarity.
 ```{r}
 plants %>%
   ggplot() +
+  geom_bar(mapping = aes(x = country)) +
+  labs(title ="Counts of Extinct Plant Species",
+       x = "country", y = "Count")
+```
+
+Going to try the sort function to figure out how to target variables differently. My goal is to sort and place a parameter to see if I can limit the amount of countries on the x-axis to make the histogram easier to process.
+
+So I limited the amounts of countries on the y axis, and now I need to limit the amount of countries on the x axis.
+
+```{r}
+plants %>%
+  ggplot() +
+  coord_cartesian(xlim = c(0,100), ylim = c(15,100)) +
   geom_bar(mapping = aes(x = country)) +
   labs(title ="Counts of Extinct Plant Species",
        x = "country", y = "Count")
