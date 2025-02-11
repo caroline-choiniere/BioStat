@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="palmer-penguins" class="level2">
 <h2 class="anchored" data-anchor-id="palmer-penguins">Palmer Penguins</h2>
-<p>Creating and rendering a Quarto document containing an analysis on the palmerpenguins data into a reproducible report. Then making a local repository in GitHub.</p>
+<p>Created and rendered a Quarto document containing an analysis on the palmerpenguins data into a reproducible report. Then made a local repository in GitHub.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -147,20 +147,21 @@ dbl (5): bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
 # ℹ 2 more variables: sex &lt;chr&gt;, year &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>We loaded the tidyverse, read the penguins_samp1 csv data file from Dr.&nbsp;Duryea github and then ran a line to see the first six rows of the data read into the Quarto notebook.</p>
+<p>We loaded the tidyverse, read the penguins_samp1 csv data file from Dr.&nbsp;Duryea’ github and then ran a line to see the first six rows of the data read into the Quarto notebook.</p>
 </section>
 <section id="data-manipulation" class="level2">
 <h2 class="anchored" data-anchor-id="data-manipulation">Data Manipulation</h2>
-<p>Learning how to manipulate R code to manipulate data. Focusing on filtering rows, subset columns, group data, and compute summary statistics. Side focus is narrating/explaining the workflow during this assignment with a specific interest in using tidy analyses in R with Palmer Penguins data.</p>
+<p>Learning how to manipulate R code to then manipulate data. Focused on filtering rows, subset columns, group data, and computing summary statistics. The side focus is narrating/explaining the workflow during this assignment with a specific interest in using tidy analyses in R with Palmer Penguins data. Documenting observations as well as what is being done behind the code and data manipulation will give a good background when reviewing or troubleshooting other work.</p>
 <ul>
-<li><p>are there other islands in this data set that have comparison data from the same species?</p></li>
-<li><p>is there a positive/negative correlation between body mass and the other body characteristics?</p></li>
-<li><p>are there trends present in the data frame that would allow for further research?</p></li>
+<li><p>Are there other islands in this data set that have comparison data from the same species?</p></li>
+<li><p>Is there a positive/negative correlation between body mass and the other body characteristics?</p></li>
+<li><p>Are there trends present in the data frame that would allow for further research?</p></li>
 </ul>
 <section id="dm-and-summarization" class="level3">
 <h3 class="anchored" data-anchor-id="dm-and-summarization">DM and Summarization</h3>
-<p>Building frequency tables in R with the count() to summarize categorical variables. Numerical variables more options, measures of average and measures of spread.</p>
-<p>counts for categorical data (forgot to load the tidyverse library and need to pay more attention to capitalizations)</p>
+<p>Building frequency tables in R with the count() function to summarize categorical variables. Numerical variables have more options such as measures of average and measures of spread.</p>
+<p>Counts for categorical data are in the chunk below.</p>
+<p>(forgot to load the tidyverse library and need to pay more attention to capitalization).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(island)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -194,7 +195,8 @@ dbl (5): bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
 3 Torgersen     5</code></pre>
 </div>
 </div>
-<p>Interpret the output: There are three islands with specific numbers of penguins on each represented in the “n” column in this frequency table.</p>
+<p>ITO = Interpret the output, an acronym that is used throughout the quarto document.</p>
+<p>Interpret the output: There are three islands with specific numbers of penguins on each island that are represented in the “n” column in this frequency table.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -207,7 +209,7 @@ dbl (5): bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
 3 Gentoo       33</code></pre>
 </div>
 </div>
-<p>Interpret the output: there are three species, and Gentoo species of penguins appear to have the highest population in this frequency table.</p>
+<p>Interpret the output: There are three species of penguin. Gentoo species of penguin appear to have the highest population in this frequency table.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span> <span class="fu">count</span>(island, species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -221,7 +223,8 @@ dbl (5): bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
 5 Torgersen Adelie        5</code></pre>
 </div>
 </div>
-<p>ITO: Three islands with species shown in a frequency graph. Biscoe has the highest number of individuals, Torgerson follows, and Dream has the lowest number of penguin species. Chinstrap are present only on Dream, Adelie are present on all three islands and Gentoo are present on Biscoe only.</p>
+<p>ITO: Three islands with penguin species are shown in a frequency graph. Biscoe penguins have the highest number of individuals, Torgerson penguins follow, and Dream has the lowest number of penguin species in the present data.</p>
+<p>Chinstrap penguins are present only on Dream island. Adelie penguins are present on all three islands and Gentoo penguins are present on Biscoe island only.</p>
 <section id="practicing-more-readable-versions-of-output" class="level4">
 <h4 class="anchored" data-anchor-id="practicing-more-readable-versions-of-output">Practicing more readable versions of output</h4>
 <div class="cell">
@@ -237,7 +240,7 @@ dbl (5): bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
 3 Torgersen      5      0         0</code></pre>
 </div>
 </div>
-<p>Pro tip: When installing kableExtra use the ““.</p>
+<p>(Pro tip: When installing kableExtra use the ““.)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -304,7 +307,8 @@ Attaching package: 'kableExtra'</code></pre>
 1                46.4</code></pre>
 </div>
 </div>
-<p>Missing values, if we try to compute quantity, result will be NA because some of the values are missing. Code below tells R to ignore NA values.</p>
+<p>Missing values:</p>
+<p>If we try to compute the quantity, the result will be NA (not applicable) because some of the values are missing. The code below tells R to ignore NA values.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_bill_length_mm =</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -315,7 +319,7 @@ Attaching package: 'kableExtra'</code></pre>
 1                46.4</code></pre>
 </div>
 </div>
-<p>Including the median, standard deviation, minimum, 25th percentile, 75th percentile, maximum bill lengths.</p>
+<p>The code chunk below includes the median, standard deviation, minimum, 25th percentile, 75th percentile, and maximum bill lengths.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
@@ -339,7 +343,8 @@ Attaching package: 'kableExtra'</code></pre>
 6 standard_deviation_bill_length  4.93</code></pre>
 </div>
 </div>
-<p>Last line pivot_longer, converts table from being very wide to long table. Cannot currently get the kable() to work.</p>
+<p>The last line pivot_longer, converts the table from being very wide to a long table. Cannot currently get the kable() to work.</p>
+<p>Update: was able to get kable() to work with some help from Dr.&nbsp;Duryea as mgritter and dplyr needed to be deleted when I failed to load them correctly.</p>
 </section>
 </section>
 <section id="selecting-specific-rows-and-columns" class="level2">
@@ -365,7 +370,7 @@ Attaching package: 'kableExtra'</code></pre>
 # ℹ 34 more rows</code></pre>
 </div>
 </div>
-<p>Can also filter() dataset for only Chinstrap penguins.</p>
+<p>Can also filter() available data set for only Chinstrap penguins.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, island, sex, year) <span class="sc">%&gt;%</span></span>
@@ -378,7 +383,8 @@ Attaching package: 'kableExtra'</code></pre>
 2 Chinstrap Dream  female  2007</code></pre>
 </div>
 </div>
-<p>Showing how to deselect columns using the select() func and - sign in front of column name. Makes a smaller data frame. Troubleshooting was needed when copying code from the document as the object was not recognized, the object name threw errors until the name was changed to “Chinstrap %&gt;%”</p>
+<p>Showing how to deselect columns using the select() function and (-) sign in front of the column name. This makes a smaller data frame.</p>
+<p>Troubleshooting was needed when copying code from the document as the object was not recognized, the object name threw errors until the name was changed to “Chinstrap %&gt;%”</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>Chinstrap <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, island, sex, year) <span class="sc">%&gt;%</span></span>
@@ -396,7 +402,7 @@ Attaching package: 'kableExtra'</code></pre>
 </div>
 <section id="grouping-and-summarizing-groups" class="level3">
 <h3 class="anchored" data-anchor-id="grouping-and-summarizing-groups">Grouping and Summarizing Groups</h3>
-<p>Using group_by() and summarize() to compare summary statistics across groups. I used the bill_depth_mm to compare the average and standard deviation across species group and also to practice grouping and summarize groups.</p>
+<p>Using group_by() and summarize() to compare summary statistics across groups. I used the bill_depth_mm to compare the average and standard deviation across species groups and also to practice grouping and summarize groups.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
@@ -413,12 +419,14 @@ Attaching package: 'kableExtra'</code></pre>
 3 Gentoo                  15.2            0.951</code></pre>
 </div>
 </div>
-<p>IOD: Chinstrap has the largest mean bill depth, followed by Adelie, and Gentoo. Chinstrap has the largest standard deviation, while Gentoo has the second largest STD with the smallest mean bill depth. Adelie has the smallest STD with the second largest mean bill depth. The larger STD has more variable bill lengths, and probably a broader distribution curve. The smaller STD (Adelie) may have a less broad distribution curve and less of a variation on bill depth than the Chinstrap or Gentoo.</p>
+<p>IOD = Interpret Output Data</p>
+<p>STD = Standard Deviation</p>
+<p>IOD: Chinstrap penguins have the largest mean bill depth, followed by Adelie penguins, then Gentoo penguins. Chinstrap penguins have the largest standard deviation (STD) , while Gentoo penguins have the second largest STD with the smallest mean bill depth. Adelie penguins have the smallest STD with the second largest mean bill depth. The larger STD has more variable bill lengths, and probably a broader distribution curve. The smaller STD (Adelie penguins) may have a less broad distribution curve and less of a variation on bill depth than the Chinstrap or Gentoo penguin species.</p>
 </section>
 <section id="data-visualization-with-ggplot" class="level3">
-<h3 class="anchored" data-anchor-id="data-visualization-with-ggplot">Data visualization with ggplot()</h3>
-<section id="using-one-category-variable-ex-uses-a-barplot." class="level4">
-<h4 class="anchored" data-anchor-id="using-one-category-variable-ex-uses-a-barplot.">Using one category variable: ex uses a barplot.</h4>
+<h3 class="anchored" data-anchor-id="data-visualization-with-ggplot">Data Visualization with ggplot()</h3>
+<section id="using-one-category-variable-example-uses-a-bar-plot." class="level4">
+<h4 class="anchored" data-anchor-id="using-one-category-variable-example-uses-a-bar-plot.">Using one category variable: example uses a bar-plot.</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -433,7 +441,8 @@ Attaching package: 'kableExtra'</code></pre>
 </div>
 </div>
 </div>
-<p>Data visualization with one categorical variable using ggplot(). Using a barplot, the visual shows that Gentoo have the largest individuals count per species, with Adelie and then Chinstrap. The + is being used to connect and add additional layers to the function. Allows for ggplot to be customized based on layer function and at what step the layer function is being added.</p>
+<p>Data visualization with one categorical variable using ggplot().</p>
+<p>Using a bar-plot, the visual shows that Gentoo penguins have the largest individual count per species, with Adelie and then Chinstrap with the smallest count of individuals. The (+) is being used to connect and add additional layers to the function. The (+) allows for ggplot to be customized based on layer function and at what step the layer function is being added.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -451,7 +460,7 @@ Attaching package: 'kableExtra'</code></pre>
 <p>Will need to label the species for each flipper length and group these variables to get further information out of the data visualization.</p>
 </section>
 <section id="one-numerical-variable-using-histogram-geom_histogram-density-geom_density-boxplot-geom_boxplot." class="level4">
-<h4 class="anchored" data-anchor-id="one-numerical-variable-using-histogram-geom_histogram-density-geom_density-boxplot-geom_boxplot.">One numerical variable: using histogram (geom_histogram()), density (geom_density()), boxplot (geom_boxplot()).</h4>
+<h4 class="anchored" data-anchor-id="one-numerical-variable-using-histogram-geom_histogram-density-geom_density-boxplot-geom_boxplot.">One Numerical variable: using Histogram (geom_histogram()), density (geom_density()), boxplot (geom_boxplot()).</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -469,7 +478,7 @@ Attaching package: 'kableExtra'</code></pre>
 </div>
 </div>
 <p>There is some confusion when looking to see what the bill length is as these values have multiple significant figures to increase precision for bill length measurement. The histogram shows visual distribution well and is able to be understood at a glance.</p>
-<p>Changing to a boxplot does not give further information as the distribution is gone. The histogram is better with visual distribution as the columns show count clearly, while the density visual is the best at showing the distribution of bill lengths but is slightly lacking in finding the count quickly.</p>
+<p>Changing to a boxplot does not give further information as the distribution is visibly gone. The histogram is better with visual distribution as the columns show count clearly, while the density visual is the best at showing the distribution of bill lengths but is slightly lacking in finding the count quickly.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -488,7 +497,7 @@ Attaching package: 'kableExtra'</code></pre>
 </div>
 </section>
 <section id="two-numerical-variables-exploring-relationship-with-a-scatterplot" class="level4">
-<h4 class="anchored" data-anchor-id="two-numerical-variables-exploring-relationship-with-a-scatterplot">Two Numerical Variables: exploring relationship with a scatterplot</h4>
+<h4 class="anchored" data-anchor-id="two-numerical-variables-exploring-relationship-with-a-scatterplot">Two Numerical Variables: exploring relationship with a Scatterplot</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>penguins<span class="sc">%&gt;%</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
@@ -503,7 +512,7 @@ Attaching package: 'kableExtra'</code></pre>
 </div>
 </div>
 <p>There is higher density around bill depth/length 16, 50.</p>
-<p>Flipper length vs body mass. Wanted to see if there was a potential relationship.</p>
+<p>Trying out comparing flipper length vs body mass to see if there is a potential correlation.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -520,8 +529,8 @@ Attaching package: 'kableExtra'</code></pre>
 </div>
 </div>
 </section>
-<section id="two-categorical-variables-relationships-between-pairs-of-categorical-variables-w-barplots-and-fill." class="level4">
-<h4 class="anchored" data-anchor-id="two-categorical-variables-relationships-between-pairs-of-categorical-variables-w-barplots-and-fill.">Two Categorical Variables: relationships between pairs of categorical variables w barplots and fill.</h4>
+<section id="two-categorical-variables-relationships-between-pairs-of-categorical-variables-with-bar-plots-and-fill." class="level4">
+<h4 class="anchored" data-anchor-id="two-categorical-variables-relationships-between-pairs-of-categorical-variables-with-bar-plots-and-fill.">Two Categorical Variables: relationships between pairs of categorical variables with bar-plots and fill.</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -535,7 +544,7 @@ Attaching package: 'kableExtra'</code></pre>
 </div>
 </div>
 </div>
-<p>Great visualization. Can see the adding of the function working to construct the different associations between two categorical variables in the layers present. The lowercase ‘species’ could. potentially be changed but then the object would throw an error and not be found?</p>
+<p>Great visualization. Can see the adding of the function working to construct the different associations between two categorical variables in the layers present. The lowercase ‘species’ could potentially be changed but then the object would throw an error and not be found?</p>
 </section>
 <section id="one-numerical-and-one-categorical-variable-visualization-to-compare-numerical-and-categorical-variables-using-boxplots-or-faceted-plots." class="level4">
 <h4 class="anchored" data-anchor-id="one-numerical-and-one-categorical-variable-visualization-to-compare-numerical-and-categorical-variables-using-boxplots-or-faceted-plots.">One Numerical and One Categorical Variable: visualization to compare numerical and categorical variables using boxplots or faceted plots.</h4>
@@ -614,18 +623,21 @@ Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
 </div>
 <p>Breaking down the code,</p>
 <ul>
-<li><p>filter is keeping the rows that fit the function, and is searching for missing variables, the ! in R stands for not, so it is saying to filter not applicable missing variable sex.</p></li>
+<li><p>The filter is keeping the rows that fit the function, and is searching for missing variables. The ! in R stands for not, so it is saying to filter not applicable missing variable sex.</p></li>
 <li><p>ggplot creates a scatterplot,</p></li>
-<li><p>geom_point creates a scatterplot and overlays a loess trendline. geom_smooth overlays the data and creates the shadow visuals on the data frame. ‘Aes’ functions in the () are a static aesthetic that apply to the layer. scale to show the data being represented on the graph. Color and shape are another scale pair.</p></li>
-<li><p>facet_grid breaks down the smaller subsets of data, seeing this where the facet is comparing island ~ sex.</p></li>
+<li><p>geom_point creates a scatterplot and overlays a loess trendline. geom_smooth overlays the data and creates the shadow visuals on the data frame. ‘Aes’ functions in the () are a static aesthetic that apply to the layer. scale is used to show the data being represented on the graph. Color and shape are another scale pair.</p></li>
+<li><p>facet_grid breaks down the smaller subsets of data, can see this where the facet is comparing island ~ sex.</p></li>
 <li><p>labs is labeling and titling everything in the visual.</p></li>
-<li><p>theme_light works with the visual of the plot and controls the coloration, and customizations.</p></li>
+<li><p>theme_light works with the visual of the plot and controls the coloration, and customization.</p></li>
 </ul>
 </section>
 </section>
 <section id="final-question" class="level2">
 <h2 class="anchored" data-anchor-id="final-question">Final Question:</h2>
-<p>The average bill length is 46.37 mm, and does exceed 45 mm. I am only able to answer for a subset of penguins as this data is based on the three species across an area of three islands. I am certain that the average length of bills exceeds 45 mm in this subset of penguins.</p>
+<p>If you haven’t done so already, can you determine whether the average bill length for a penguin exceeds&nbsp;mm? Are you able to answer only for a subset of penguins or for the entire population? How certain are you with your answer?</p>
+<ul>
+<li>The average bill length is 46.37 mm, and does exceed 45 mm. I am only able to answer for a subset of penguins as this data is based on the three species across an area of three islands. I am certain that the average length of bills exceeds 45 mm in this subset of penguins.</li>
+</ul>
 <section id="summary" class="level3">
 <h3 class="anchored" data-anchor-id="summary">Summary</h3>
 <ul>
@@ -635,7 +647,7 @@ Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
 </ul></li>
 <li><p>Is there a positive or negative correlation between body mass and the other body characteristics?</p>
 <ul>
-<li>Positive correlation between body mass and flipper length. Other body characteristics will have to be run to determine if there is any correlation.</li>
+<li>There is a positive correlation between body mass and flipper length. Other body characteristics will have to be run to determine if there is any correlation.</li>
 </ul></li>
 </ul>
 <div class="cell">

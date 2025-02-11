@@ -9,7 +9,7 @@ execute:
 
 ## Palmer Penguins
 
-Creating and rendering a Quarto document containing an analysis on the palmerpenguins data into a reproducible report. Then making a local repository in GitHub.
+Created and rendered a Quarto document containing an analysis on the palmerpenguins data into a reproducible report. Then made a local repository in GitHub.
 
 ```{r}
 library(tidyverse)
@@ -17,23 +17,25 @@ penguins<-read_csv("https://raw.githubusercontent.com/mcduryea/Intro-to-Bioinfor
 penguins %>% head()
 ```
 
-We loaded the tidyverse, read the penguins_samp1 csv data file from Dr. Duryea github and then ran a line to see the first six rows of the data read into the Quarto notebook.
+We loaded the tidyverse, read the penguins_samp1 csv data file from Dr. Duryea' github and then ran a line to see the first six rows of the data read into the Quarto notebook.
 
 ## Data Manipulation
 
-Learning how to manipulate R code to manipulate data. Focusing on filtering rows, subset columns, group data, and compute summary statistics. Side focus is narrating/explaining the workflow during this assignment with a specific interest in using tidy analyses in R with Palmer Penguins data.
+Learning how to manipulate R code to then manipulate data. Focused on filtering rows, subset columns, group data, and computing summary statistics. The side focus is narrating/explaining the workflow during this assignment with a specific interest in using tidy analyses in R with Palmer Penguins data. Documenting observations as well as what is being done behind the code and data manipulation will give a good background when reviewing or troubleshooting other work.
 
--   are there other islands in this data set that have comparison data from the same species?
+-   Are there other islands in this data set that have comparison data from the same species?
 
--   is there a positive/negative correlation between body mass and the other body characteristics?
+-   Is there a positive/negative correlation between body mass and the other body characteristics?
 
--   are there trends present in the data frame that would allow for further research?
+-   Are there trends present in the data frame that would allow for further research?
 
 ### DM and Summarization
 
-Building frequency tables in R with the count() to summarize categorical variables. Numerical variables more options, measures of average and measures of spread.
+Building frequency tables in R with the count() function to summarize categorical variables. Numerical variables have more options such as measures of average and measures of spread.
 
-counts for categorical data (forgot to load the tidyverse library and need to pay more attention to capitalizations)
+Counts for categorical data are in the chunk below.
+
+(forgot to load the tidyverse library and need to pay more attention to capitalization).
 
 ```{r}
 penguins %>% 
@@ -45,20 +47,24 @@ penguins %>%
   count(island)
 ```
 
-Interpret the output: There are three islands with specific numbers of penguins on each represented in the "n" column in this frequency table.
+ITO = Interpret the output, an acronym that is used throughout the quarto document.
+
+Interpret the output: There are three islands with specific numbers of penguins on each island that are represented in the "n" column in this frequency table.
 
 ```{r}
 penguins %>%
   count(species)
 ```
 
-Interpret the output: there are three species, and Gentoo species of penguins appear to have the highest population in this frequency table.
+Interpret the output: There are three species of penguin. Gentoo species of penguin appear to have the highest population in this frequency table.
 
 ```{r}
 penguins %>% count(island, species)
 ```
 
-ITO: Three islands with species shown in a frequency graph. Biscoe has the highest number of individuals, Torgerson follows, and Dream has the lowest number of penguin species. Chinstrap are present only on Dream, Adelie are present on all three islands and Gentoo are present on Biscoe only.
+ITO: Three islands with penguin species are shown in a frequency graph. Biscoe penguins have the highest number of individuals, Torgerson penguins follow, and Dream has the lowest number of penguin species in the present data.
+
+Chinstrap penguins are present only on Dream island. Adelie penguins are present on all three islands and Gentoo penguins are present on Biscoe island only.
 
 #### Practicing more readable versions of output
 
@@ -68,7 +74,7 @@ penguins %>%
   pivot_wider(names_from = species, values_from = n, values_fill = 0)
 ```
 
-Pro tip: When installing kableExtra use the "".
+(Pro tip: When installing kableExtra use the "".)
 
 ```{r}
 library(kableExtra)
@@ -88,14 +94,16 @@ penguins %>%
   summarize(mean_bill_length_mm = mean(bill_length_mm))
 ```
 
-Missing values, if we try to compute quantity, result will be NA because some of the values are missing. Code below tells R to ignore NA values.
+Missing values:
+
+If we try to compute the quantity, the result will be NA (not applicable) because some of the values are missing. The code below tells R to ignore NA values.
 
 ```{r}
 penguins %>%
   summarize(mean_bill_length_mm = mean(bill_length_mm, na.rm = TRUE))
 ```
 
-Including the median, standard deviation, minimum, 25th percentile, 75th percentile, maximum bill lengths.
+The code chunk below includes the median, standard deviation, minimum, 25th percentile, 75th percentile, and maximum bill lengths.
 
 ```{r}
 penguins %>%
@@ -110,7 +118,9 @@ penguins %>%
   pivot_longer(cols = everything())
 ```
 
-Last line pivot_longer, converts table from being very wide to long table. Cannot currently get the kable() to work.
+The last line pivot_longer, converts the table from being very wide to a long table. Cannot currently get the kable() to work.
+
+Update: was able to get kable() to work with some help from Dr. Duryea as mgritter and dplyr needed to be deleted when I failed to load them correctly.
 
 ## Selecting Specific Rows and Columns
 
@@ -121,7 +131,7 @@ penguins %>%
   select(species, island, sex, year)
 ```
 
-Can also filter() dataset for only Chinstrap penguins.
+Can also filter() available data set for only Chinstrap penguins.
 
 ```{r}
 penguins %>%
@@ -129,7 +139,9 @@ penguins %>%
   filter(species == "Chinstrap")
 ```
 
-Showing how to deselect columns using the select() func and - sign in front of column name. Makes a smaller data frame. Troubleshooting was needed when copying code from the document as the object was not recognized, the object name threw errors until the name was changed to "Chinstrap %\>%"
+Showing how to deselect columns using the select() function and (-) sign in front of the column name. This makes a smaller data frame.
+
+Troubleshooting was needed when copying code from the document as the object was not recognized, the object name threw errors until the name was changed to "Chinstrap %\>%"
 
 ```{r}
 Chinstrap <- penguins %>%
@@ -142,7 +154,7 @@ Chinstrap %>%
 
 ### Grouping and Summarizing Groups
 
-Using group_by() and summarize() to compare summary statistics across groups. I used the bill_depth_mm to compare the average and standard deviation across species group and also to practice grouping and summarize groups.
+Using group_by() and summarize() to compare summary statistics across groups. I used the bill_depth_mm to compare the average and standard deviation across species groups and also to practice grouping and summarize groups.
 
 ```{r}
 penguins %>%
@@ -153,11 +165,15 @@ penguins %>%
   )
 ```
 
-IOD: Chinstrap has the largest mean bill depth, followed by Adelie, and Gentoo. Chinstrap has the largest standard deviation, while Gentoo has the second largest STD with the smallest mean bill depth. Adelie has the smallest STD with the second largest mean bill depth. The larger STD has more variable bill lengths, and probably a broader distribution curve. The smaller STD (Adelie) may have a less broad distribution curve and less of a variation on bill depth than the Chinstrap or Gentoo.
+IOD = Interpret Output Data
 
-### Data visualization with ggplot()
+STD = Standard Deviation
 
-#### Using one category variable: ex uses a barplot.
+IOD: Chinstrap penguins have the largest mean bill depth, followed by Adelie penguins, then Gentoo penguins. Chinstrap penguins have the largest standard deviation (STD) , while Gentoo penguins have the second largest STD with the smallest mean bill depth. Adelie penguins have the smallest STD with the second largest mean bill depth. The larger STD has more variable bill lengths, and probably a broader distribution curve. The smaller STD (Adelie penguins) may have a less broad distribution curve and less of a variation on bill depth than the Chinstrap or Gentoo penguin species.
+
+### Data Visualization with ggplot()
+
+#### Using one category variable: example uses a bar-plot.
 
 ```{r}
 penguins %>%
@@ -167,7 +183,9 @@ penguins %>%
        x = "Species", y = "Count")
 ```
 
-Data visualization with one categorical variable using ggplot(). Using a barplot, the visual shows that Gentoo have the largest individuals count per species, with Adelie and then Chinstrap. The + is being used to connect and add additional layers to the function. Allows for ggplot to be customized based on layer function and at what step the layer function is being added.
+Data visualization with one categorical variable using ggplot().
+
+Using a bar-plot, the visual shows that Gentoo penguins have the largest individual count per species, with Adelie and then Chinstrap with the smallest count of individuals. The (+) is being used to connect and add additional layers to the function. The (+) allows for ggplot to be customized based on layer function and at what step the layer function is being added.
 
 ```{r}
 penguins %>%
@@ -179,7 +197,7 @@ penguins %>%
 
 Will need to label the species for each flipper length and group these variables to get further information out of the data visualization.
 
-#### One numerical variable: using histogram (geom_histogram()), density (geom_density()), boxplot (geom_boxplot()).
+#### One Numerical variable: using Histogram (geom_histogram()), density (geom_density()), boxplot (geom_boxplot()).
 
 ```{r}
 penguins %>%
@@ -190,7 +208,7 @@ penguins %>%
 
 There is some confusion when looking to see what the bill length is as these values have multiple significant figures to increase precision for bill length measurement. The histogram shows visual distribution well and is able to be understood at a glance.
 
-Changing to a boxplot does not give further information as the distribution is gone. The histogram is better with visual distribution as the columns show count clearly, while the density visual is the best at showing the distribution of bill lengths but is slightly lacking in finding the count quickly.
+Changing to a boxplot does not give further information as the distribution is visibly gone. The histogram is better with visual distribution as the columns show count clearly, while the density visual is the best at showing the distribution of bill lengths but is slightly lacking in finding the count quickly.
 
 ```{r}
 penguins %>%
@@ -202,7 +220,7 @@ penguins %>%
        x = "Bill Length (mm)", y = "Count")
 ```
 
-#### Two Numerical Variables: exploring relationship with a scatterplot
+#### Two Numerical Variables: exploring relationship with a Scatterplot
 
 ```{r}
 penguins%>%
@@ -213,7 +231,7 @@ penguins%>%
 
 There is higher density around bill depth/length 16, 50.
 
-Flipper length vs body mass. Wanted to see if there was a potential relationship.
+Trying out comparing flipper length vs body mass to see if there is a potential correlation.
 
 ```{r}
 penguins %>%
@@ -224,7 +242,7 @@ penguins %>%
        y = "Body Mass (g)")
 ```
 
-#### Two Categorical Variables: relationships between pairs of categorical variables w barplots and fill.
+#### Two Categorical Variables: relationships between pairs of categorical variables with bar-plots and fill.
 
 ```{r}
 penguins %>%
@@ -233,7 +251,7 @@ penguins %>%
   labs(title = "Species by Island", x = "Island", y = "Species")
 ```
 
-Great visualization. Can see the adding of the function working to construct the different associations between two categorical variables in the layers present. The lowercase 'species' could. potentially be changed but then the object would throw an error and not be found?
+Great visualization. Can see the adding of the function working to construct the different associations between two categorical variables in the layers present. The lowercase 'species' could potentially be changed but then the object would throw an error and not be found?
 
 #### One Numerical and One Categorical Variable: visualization to compare numerical and categorical variables using boxplots or faceted plots.
 
@@ -277,21 +295,23 @@ penguins %>%
 
 Breaking down the code,
 
--   filter is keeping the rows that fit the function, and is searching for missing variables, the ! in R stands for not, so it is saying to filter not applicable missing variable sex.
+-   The filter is keeping the rows that fit the function, and is searching for missing variables. The ! in R stands for not, so it is saying to filter not applicable missing variable sex.
 
 -   ggplot creates a scatterplot,
 
--   geom_point creates a scatterplot and overlays a loess trendline. geom_smooth overlays the data and creates the shadow visuals on the data frame. 'Aes' functions in the () are a static aesthetic that apply to the layer. scale to show the data being represented on the graph. Color and shape are another scale pair.
+-   geom_point creates a scatterplot and overlays a loess trendline. geom_smooth overlays the data and creates the shadow visuals on the data frame. 'Aes' functions in the () are a static aesthetic that apply to the layer. scale is used to show the data being represented on the graph. Color and shape are another scale pair.
 
--   facet_grid breaks down the smaller subsets of data, seeing this where the facet is comparing island \~ sex.
+-   facet_grid breaks down the smaller subsets of data, can see this where the facet is comparing island \~ sex.
 
 -   labs is labeling and titling everything in the visual.
 
--   theme_light works with the visual of the plot and controls the coloration, and customizations.
+-   theme_light works with the visual of the plot and controls the coloration, and customization.
 
 ## Final Question:
 
-The average bill length is 46.37 mm, and does exceed 45 mm. I am only able to answer for a subset of penguins as this data is based on the three species across an area of three islands. I am certain that the average length of bills exceeds 45 mm in this subset of penguins.
+If you haven’t done so already, can you determine whether the average bill length for a penguin exceeds mm? Are you able to answer only for a subset of penguins or for the entire population? How certain are you with your answer?
+
+-   The average bill length is 46.37 mm, and does exceed 45 mm. I am only able to answer for a subset of penguins as this data is based on the three species across an area of three islands. I am certain that the average length of bills exceeds 45 mm in this subset of penguins.
 
 ### Summary
 
@@ -301,7 +321,7 @@ The average bill length is 46.37 mm, and does exceed 45 mm. I am only able to an
 
 -   Is there a positive or negative correlation between body mass and the other body characteristics?
 
-    -   Positive correlation between body mass and flipper length. Other body characteristics will have to be run to determine if there is any correlation.
+    -   There is a positive correlation between body mass and flipper length. Other body characteristics will have to be run to determine if there is any correlation.
 
 ```{r}
 penguins %>%
