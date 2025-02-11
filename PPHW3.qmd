@@ -9,7 +9,7 @@ execute:
 
 ## Palmer Penguins
 
-Created and rendered a Quarto document containing an analysis on the palmerpenguins data into a reproducible report. Then made a local repository in GitHub.
+Created and rendered a Quarto document containing an analysis on the palmer penguins data into a reproducible report. Then made a local repository in GitHub.
 
 ```{r}
 library(tidyverse)
