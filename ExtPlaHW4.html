@@ -98,6 +98,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="exploratory-analyses-and-reporting" class="level1">
+<h1>Exploratory Analyses and Reporting</h1>
+<section id="abstract" class="level2">
+<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
+<p>Briefly introduce the topic/subject</p>
+<p>The data being worked with is from the International Union for Conservation of Nature (IUNC) Red List of Threatened Species (Version 2020-1). Florent Lavergne scrapped and prepared the <em>Plants in Danger</em> project to develop an info-graphic showing the biodiversity crisis plants are undergoing around the world. The data set is being used to explore the link between socio-economic activity and plant extinction. Determining if extinction risk varies by region is another potential use of the data set.</p>
+<p>IUCN (2020) The IUCN Red List of Threatened Species. Version 2020-1.&nbsp;<br>
+https://www.iucnredlist.org</p>
+</section>
+<section id="intro" class="level2">
+<h2 class="anchored" data-anchor-id="intro">Intro</h2>
+<p>The IUCN Red List of Threatened Species (Version 2020-1) data comes from researchers who use the IUCN assessment procedure. Mosses, Ferns and Allies, Gymnosperms, and Flowering Plants were contributed to by multiple researchers as sources for the number of described species used in IUCN Red List version 2020-1: Table 1a.</p>
+<p>Florent Lavergne and Cedric Scherer scrapped and prepared <em>Plants in Danger</em> data sets to make network maps that visually describe where plant extinction is taking place. The dataset is split into plants.csv, threats.csv and actions.csv. Variable types include double class, character class and description.</p>
+</section>
 <section id="addingreading-data-into-notebook" class="level2">
 <h2 class="anchored" data-anchor-id="addingreading-data-into-notebook">Adding/Reading Data into Notebook</h2>
 <p>Splitting an available data set into an exploratory and test set to test inferential claims. Then conducting an exploratory analysis using exploratory set to generate some hypotheses. Chose to do the extinct plants data set on GitHub.</p>
@@ -175,13 +189,14 @@ dbl (1): threatened
 ✖ dplyr::lag()      masks stats::lag()
 ✖ yardstick::spec() masks readr::spec()
 ✖ recipes::step()   masks stats::step()
-• Use tidymodels_prefer() to resolve common conflicts.</code></pre>
+• Learn how to get started at https://www.tidymodels.org/start/</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>my_data_splits <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(plants, <span class="at">prop =</span> <span class="fl">0.5</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>exploratory_data <span class="ot">&lt;-</span> <span class="fu">training</span>(my_data_splits)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> <span class="fu">testing</span>(my_data_splits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 </section>
 <section id="questions-to-investigate" class="level1">
 <h1>Questions to investigate</h1>
@@ -907,7 +922,8 @@ Attaching package: 'kableExtra'</code></pre>
 
 </div>
 </div>
-<p>Going to try to use ggplot() to show the amount of extinct plants per country using one categorical variable. Once executed, has too many countries, so I am going to try and put a limiter on the count to see what countries have the highest and lowest number of extinct plant species.</p>
+<p>Going to try to use ggplot() to show the amount of extinct plants per country using one categorical variable.</p>
+<p>Once executed, the x axis has too many countries to discern results, so I am going to try and put a limiter on the count to see what countries have the highest and lowest number of extinct plant species.</p>
 <p>Actually I am going to switch it to continent for clarity.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plants <span class="sc">%&gt;%</span></span>
@@ -954,6 +970,30 @@ Attaching package: 'kableExtra'</code></pre>
 </div>
 </div>
 </div>
+<p>Trying the group_by function in a histogram.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plants <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">15</span>,<span class="dv">100</span>)) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> country)) <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span><span class="st">"Counts of Extinct Plant Species"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"country"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ExtPlaHW4_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Abstract and other exploration description can be in bullet points for submission this weekend. Like one paragraph for abstract and then 2-3 for the intro describing dataset and what you have learned from github to introduce the dataset and exploratory analysis</p>
+<p>Feedback:</p>
+<p>includes deciding to narrow exploratory analysis to one question. Determining if extinction risk varies by region??</p>
+<p>Teacher Advice</p>
+<ul>
+<li><p>start with analysis of the exploratory_data first, then use whole data set (plants) after refining analysis</p></li>
+<li><p>potentially use the group_by function to group by continent and then summarise() on different threat columns.</p></li>
+</ul>
 </section>
 </section>
 
