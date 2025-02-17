@@ -8,8 +8,6 @@ editor: visual
 
 ## Abstract
 
-Briefly introduce the topic/subject
-
 The data being worked with is from the International Union for Conservation of Nature (IUNC) Red List of Threatened Species (Version 2020-1). Florent Lavergne scrapped and prepared the *Plants in Danger* project to develop an info-graphic showing the biodiversity crisis plants are undergoing around the world. The data set is being used to explore the link between socio-economic activity and plant extinction. Determining if extinction risk varies by region is another potential use of the data set.
 
 IUCN (2020) The IUCN Red List of Threatened Species. Version 2020-1. \
@@ -120,22 +118,13 @@ plants %>%
 Trying the group_by function in a histogram.
 
 ```{r}
+#| eval: false
+#| include: false
 plants %>% 
-  ggplot() +
-  coord_cartesian(xlim = c(0,100), ylim = c(15,100)) +
-  geom_bar(mapping = aes(x = country)) +
-  labs(title ="Counts of Extinct Plant Species",
-       x = "country", y = "Count")
+  filter(country>25) %>% 
+  group_by()
+  ggplot(aes(threat_HID, country))+
+  labs(title = "Country vs Threat: Human Intrusions",
+       x = "threat_HID",
+       y = "Country")
 ```
-
-Abstract and other exploration description can be in bullet points for submission this weekend. Like one paragraph for abstract and then 2-3 for the intro describing dataset and what you have learned from github to introduce the dataset and exploratory analysis
-
-Feedback:
-
-includes deciding to narrow exploratory analysis to one question. Determining if extinction risk varies by region??
-
-Teacher Advice
-
--   start with analysis of the exploratory_data first, then use whole data set (plants) after refining analysis
-
--   potentially use the group_by function to group by continent and then summarise() on different threat columns.
