@@ -8,7 +8,7 @@ editor: visual
 
 ## Abstract
 
-The data being worked with is from the International Union for Conservation of Nature (IUNC) Red List of Threatened Species (Version 2020-1). Florent Lavergne scrapped and prepared the *Plants in Danger* project to develop an info-graphic showing the biodiversity crisis plants are undergoing around the world. The data set is being used to explore the link between socio-economic activity and plant extinction. Determining if extinction risk varies by region is another potential use of the data set.
+The data being worked with is from the International Union for Conservation of Nature (IUNC) Red List of Threatened Species (Version 2020-1). Florent Lavergne scrapped and prepared the *Plants in Danger* project to develop an info-graphic showing the biodiversity crisis plants are undergoing around the world. The data set is being used to explore the link between socio-economic activity and plant extinction. Determining if extinction risk varies by region is another potential use of the data set. Africa and Madagascar have the highest count of extinct plant species per Continent and Country with links to socio-economic disturbance in the forms of over-industrialization of green areas and disruption of natural forest (Feintrenie, 2014; Ralimanana et al., 2022). It is shown in IUCN data that over-exploitation and unsustainable agricultural practices in Madagascar are a threat to biodiversity (Stévart et al., 2019). Plant extinction varies by Continent, and a link to social or economic activity is found in Africa and Madagascar.
 
 IUCN (2020) The IUCN Red List of Threatened Species. Version 2020-1. \
 https://www.iucnredlist.org
@@ -47,14 +47,11 @@ exploratory_data <- training(my_data_splits)
 test_data <- testing(my_data_splits)
 ```
 
-```{r}
-```
-
 # Questions to investigate
 
-#### Are there trends in binomial name where some plants across genus are more susceptible and does this translate to other locations? \>
+#### Are there trends in binomial name where some plants across genus are more susceptible and does this translate to other locations?
 
-#### Do climates contribute to the stressors associated with extinction in Asia or in other countries that share extinct plant range? \>
+#### Do climates contribute to stressors associated with extinction in Asia or in other countries that share extinct plant range?
 
 #### If there are reasons for plant extinction do they link to social or economic activity or is a main cause environment?
 
@@ -62,14 +59,181 @@ test_data <- testing(my_data_splits)
 
 # Data Exploration
 
-#### Going to try and do a count for categorical data and create a frequency table for the country variable.
+Created a frequency table for the country variable using the count function.
+
+```{r}
+exploratory_data%>%
+  count(country)
+```
+
+Installed and ran the kableExtra package to change the data display. The table presents the data adequately but there are too many countries to scroll through to get a full understanding of the table results. The next step is to graph the split dataset to see what results are displayed.
+
+```{r}
+library(kableExtra)
+exploratory_data %>%
+  count(country, continent) %>%
+  pivot_wider(names_from = continent, values_from = n, values_fill = 0) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+```
+
+Used ggplot() to show the amount of extinct plants per country using one categorical variable. The bar graph visually has no errors but the formatting is lacking in readability. Next step is to try and put a limiter or boundary on the count of extinct species to see which countries have higher extinct plant species.
+
+```{r}
+exploratory_data %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = country)) +
+  labs(title ="Counts of Extinct Plant Species",
+       x = "country", y = "Count")
+```
+
+Going to try the sort function to figure out how to target variables differently. My goal is to sort and place a parameter to see if I can limit the amount of countries on the x-axis to make the bargraph easier to process.
+
+Limited the amounts of countries on the y axis using the coord_cartesian() function, and now I need to limit the amount of countries on the x axis.
+
+```{r}
+exploratory_data %>%
+  ggplot() +
+  coord_cartesian(xlim = c(0,100), ylim = c(15,100)) +
+  geom_bar(mapping = aes(x = country)) +
+  labs(title ="Counts of Extinct Plant Species",
+       x = "country", y = "Count")
+```
+
+Switched the category to Continent for clarity and readability.
+
+```{r}
+exploratory_data %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = continent)) +
+  labs(title ="Counts of Extinct Plant Species by Continent",
+       x = "Continent", y = "Count")
+```
+
+Trying the group_by function in a histogram. Added filter(country\>25) to place a parameter on countries with less than 25 threat_HID counts. It did not work but left the line in the code chunk as a reminder to what did not work.
+
+```{r}
+#| eval: false
+#| include: false
+exploratory_data %>% 
+#  filter(country>25) %>% 
+  ggplot() +
+  geom_bar(mapping = aes(x = country)) +
+  labs(title = "Country vs Threat: Human Intrusions",
+       x = "threat_HID",
+       y = "Country")
+```
+
+```{r}
+exploratory_data %>% 
+  count(country, threat_HID)
+```
+
+```{r}
+exploratory_data %>% 
+  group_by(country) %>% 
+  summarise(threat_HID, na.rm = TRUE)
+  
+```
+
+```{r}
+exploratory_data %>%
+  count(country) %>% 
+  filter(country>5) %>% 
+  ggplot() +
+  coord_cartesian(xlim = c(0,100), ylim = c(15,100)) +
+  geom_bar(mapping = aes(x = country)) +
+  labs(title ="Counts of Extinct Plant Species",
+       x = "country", y = "Count")
+```
+
+```{r}
+exploratory_data %>%
+  count(country)
+```
+
+Used position "dodge" to try and make the labels offset across multiple rows without the other lines of code required. Rectifying this mistake in the code chunk below creates the dodge formatting but does not help decrease the label overlap.
+
+```{r}
+exploratory_data %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = country), position = "dodge") +
+  labs(title ="Counts of Extinct Plant Species",
+       x = "country", y = "Count")
+```
+
+```{r}
+exploratory_data %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = country), position = "dodge") +
+  scale_x_discrete(guide = guide_axis(n.dodge = 2)) +
+  labs(title ="Counts of Extinct Plant Species",
+       x = "country", y = "Count")
+```
+
+Swapping the x and y axis is the start to increasing the label readability.
+
+```{r}
+exploratory_data %>%
+  ggplot() +
+  geom_bar(mapping = aes(y = country), position = "dodge") +
+  labs(title ="Counts of Extinct Plant Species",
+       x = "country", y = "Count")
+```
+
+Switching the axis' and starting at a base font size of 10 shows some tweaking is still required.
+
+```{r}
+exploratory_data %>%
+  ggplot() +
+  geom_bar(mapping = aes(y = country), position = "dodge") +
+  labs(title ="Counts of Extinct Plant Species",
+       x = "country", y = "Count") +
+  theme_gray(base_size = 10)
+  
+```
+
+```{r}
+exploratory_data %>%
+  ggplot() +
+  geom_bar(mapping = aes(y = country), position = "dodge") +
+  labs(title ="Counts of Extinct Plant Species by Country",
+       x = "count", y = "country") +
+  theme_gray(base_size = 8)
+```
+
+The exploratory data bar graph labeling is readable when the axis are flipped, and fonts are shrunk. The use of + signs are part of the base function of making sure the code operates correctly.
+
+## Original Hypotheses:
+
+Are there trends in binomial name where some plants across genus are more susceptible and does this translate to other locations?
+
+Do climates contribute to stressors associated with extinction in Asia or in other countries that share extinct plant range?
+
+If there are reasons for plant extinction do they link to social or economic activity or is a main cause environment?
+
+In higher stress scenarios, do the secondary metabolites activated cause chemical signals to activate in other plants and insects and in turn stress out other plants in the environment.
+
+## Refined Hypotheses: 
+
+1.  Does plant extinction or threat level vary by Continent or Country and is there a link to social or economic activity?
+
+2.  In countries that have higher extinction/threat rates are there overlap in the genus and species affected?
+
+# Methodology
+
+The exploratory analyses were conducted using a small section of data from the Plants dataset that will be used in this section. The main issue was the formatting and labeling of the data as Country names were overlapping and creating difficulty in discerning which Country had the highest count of extinct plants. ggplot(), geom_bar(), switching the axes, and font formatting worked to create a readable graph of extinct plant counts per Country.
+
+The initial code chunks are used to determine if the full dataset is working correctly. Re-doing the steps to the exploratory analysis using the plants dataset also give credibility to the initial graphs and tables that were created by seeing if data is similar or the same. Classical methods will be used to test which Countries have the highest count of extinct plants as there is a strong assumption that Africa, Asia and the USA will most likely have the highest counts of extinct plants.
+
+Created a frequency table for the country variable using the count function.
 
 ```{r}
 plants %>%
   count(country)
 ```
 
-Going to try and install and run the kableExtra package to see if I can make it look nicer. Made it look nicer but there is too much going on to get a clear read of the table. Let's try graphing it.
+Installed and ran the kableExtra package to change the full plants data display. The table presents the data adequately but there are too many countries to scroll through to get a full understanding of the table results. The next step is to graph the full dataset to see what results are displayed.
 
 ```{r}
 library(kableExtra)
@@ -80,11 +244,7 @@ plants %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
-Going to try to use ggplot() to show the amount of extinct plants per country using one categorical variable.
-
-Once executed, the x axis has too many countries to discern results, so I am going to try and put a limiter on the count to see what countries have the highest and lowest number of extinct plant species.
-
-Actually I am going to switch it to continent for clarity.
+Used ggplot() to show the amount of extinct plants per country using one categorical variable. The bar graph visually has no errors but the formatting is lacking in readability. Next step is to try and put a limiter or boundary on the count of extinct species to see which countries have higher extinct plant species.
 
 ```{r}
 plants %>%
@@ -94,9 +254,9 @@ plants %>%
        x = "country", y = "Count")
 ```
 
-Going to try the sort function to figure out how to target variables differently. My goal is to sort and place a parameter to see if I can limit the amount of countries on the x-axis to make the histogram easier to process.
+Going to try the sort function to figure out how to target variables differently. My goal is to sort and place a parameter to see if I can limit the amount of countries on the x-axis to make the bargraph easier to process.
 
-So I limited the amounts of countries on the y axis, and now I need to limit the amount of countries on the x axis.
+Limited the amounts of countries on the y axis using the coord_cartesian() function, and now I need to limit the amount of countries on the x axis.
 
 ```{r}
 plants %>%
@@ -115,16 +275,98 @@ plants %>%
        x = "Continent", y = "Count")
 ```
 
-Trying the group_by function in a histogram.
+Trying the group_by function in a histogram. Added filter(country\>25) to place a parameter on countries with less than 25 threat_HID counts. It did not work but left the line in the code chunk as a reminder to what did not work.
 
 ```{r}
 #| eval: false
 #| include: false
 plants %>% 
-  filter(country>25) %>% 
-  group_by()
-  ggplot(aes(threat_HID, country))+
+#  filter(country>25) %>% 
+  ggplot() +
+  geom_bar(mapping = aes(x = country)) +
   labs(title = "Country vs Threat: Human Intrusions",
        x = "threat_HID",
        y = "Country")
 ```
+
+Testing the count function in the plants dataset.
+
+```{r}
+plants %>% 
+  count(country, threat_HID)
+```
+
+The count function is not giving results as clearly because there are no significant differences the count function can display to create meaning.
+
+```{r}
+plants %>% 
+  group_by(country) %>% 
+  summarise(threat_HID, na.rm = TRUE)
+  
+```
+
+```{r}
+plants %>%
+  count(country) %>% 
+  filter(country>5) %>% 
+  ggplot() +
+  coord_cartesian(ylim = c(15,100)) +
+  geom_bar(mapping = aes(x = country)) +
+  labs(title ="Counts of Extinct Plant Species",
+       x = "Country", y = "Count")
+```
+
+```{r}
+plants %>%
+  count(country)
+```
+
+Worked with Dr. Duryea to customize the format of results and create a legible display to discern the count of extinct plant species by country. The axis was switched, and then the font size was decreased to read the countries.
+
+```{r}
+plants %>%
+  ggplot() +
+  geom_bar(mapping = aes(y = country), position = "dodge") +
+  labs(title ="Counts of Extinct Plant Species by Country",
+       x = "Count", y = "Country") +
+  theme_gray(base_size = 8)
+#switched the axis, and then changed the font size to read the countries. 
+```
+
+Figured out the plot, earlier pieces are cleaner. <https://www.andrewheiss.com/blog/2022/06/23/long-labels-ggplot/>
+
+The plot changes would be useful for a smaller dataset but do not work as well with the plants dataset.
+
+```{r}
+plants %>% 
+ggplot() +
+  geom_bar(mapping = aes(y = country), position = "dodge") +
+  scale_y_discrete(guide = guide_axis(n.dodge = 2)) +
+  labs(title ="Counts of Extinct Plant Species by Country",
+       x = "Count", y = "Country") +
+  theme_gray(base_size = 8)
+```
+
+```{r}
+plants %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = continent)) +
+  labs(title ="Counts of Extinct Plant Species by Continent",
+       x = "Continent", y = "Count")
+```
+
+Plant extinction varies by Continent and Country. There was insufficient data to determine how the threat level varies by these variables. Africa has the highest count of extinct plants by Continent, with Madagascar having the highest count of extinct plants by Country. These results were middling to what the initial hypotheses suggested, as it was assumed that the USA and Asia were the Continents with the highest extinct plant counts by Continent. The results of Africa and Madagascar work to answer part of the first question as plant extinction varies. Significant threats to African biodiversity include industrial-scale activities such as timber operations, plantations, mining, and agriculture (Ralimanana et al., 2022). Major threats to biodiversity are also seen in the loss of green areas (agro-industrial concessions) that deplete natural forest biodiversity, in turn, for plantations (Feintrenie, 2014). It is shown in IUCN data that over-exploitation and unsustainable agricultural practices in Madagascar are a threat to biodiversity (Stévart et al., 2019). Plant extinction varies by Continent, and a link to social or economic activity is found in Africa and Madagascar. 
+
+# Conclusion
+
+Refined Hypotheses:
+
+1.  Does plant extinction or threat level vary by Continent or Country and is there a link to social or economic activity?
+
+2.  In countries that have higher extinction/threat rates are there overlap in the genus and species affected?
+
+The data being worked with is from the International Union for Conservation of Nature (IUNC) Red List of Threatened Species (Version 2020-1). Florent Lavergne scrapped and prepared the *Plants in Danger* project to develop an info-graphic showing the biodiversity crisis plants are undergoing around the world. The data set is being used to explore the link between socio-economic activity and plant extinction. Determining if extinction risk varies by region is another potential use of the data set.
+
+The data set initial questions were broadened to potentially address general themes that could be seen in both the split data set and the full data set. Country and Continent plant extinction rates were compared using different graph and formatting techniques. The exploratory data was easiest to understand using a bar graph but needed some formatting help. In the exploratory data set, the highest plant extinction counts for Country and Continent were seen in Madagascar and Africa. The plants data set showed the same trend with Madagascar and Africa having the highest counts of extinct plants using the data taken from IUCN and scrapped by Florent Lavergne.
+
+The initial questions were refined into asking if there were a link between plant extinction rates variation and the socio-economic state of the Country and Continent. Further research and potential data collection could focus on if there are overlap between genus and species affected by higher plant extinction counts and threats. Variables like climate zones for each species in the country could add some insight to what places have higher rates of biodiversity crisis.
