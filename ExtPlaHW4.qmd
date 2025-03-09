@@ -370,3 +370,13 @@ The data being worked with is from the International Union for Conservation of N
 The data set initial questions were broadened to potentially address general themes that could be seen in both the split data set and the full data set. Country and Continent plant extinction rates were compared using different graph and formatting techniques. The exploratory data was easiest to understand using a bar graph but needed some formatting help. In the exploratory data set, the highest plant extinction counts for Country and Continent were seen in Madagascar and Africa. The plants data set showed the same trend with Madagascar and Africa having the highest counts of extinct plants using the data taken from IUCN and scrapped by Florent Lavergne.
 
 The initial questions were refined into asking if there were a link between plant extinction rates variation and the socio-economic state of the Country and Continent. Further research and potential data collection could focus on if there are overlap between genus and species affected by higher plant extinction counts and threats. Variables like climate zones for each species in the country could add some insight to what places have higher rates of biodiversity crisis.
+
+# References
+
+Feintrenie, L. (2014). Agro-industrial plantations in Central Africa, risks and opportunities. *Biodiversity and Conservation, 23*(6), 1577–1589. 10.1007/s10531-014-0687-5
+
+Ralimanana, R., Perrigo, P., Smith, S., Borrell, B., Faurby, F., Rajaonah, R., Randriamboavonjy, R., Vorontsova, V., Cooke, C., Phelps, P., Sayol, S., Andela, A., Andermann, A., Andriamanohera, A., Andriambololonera, A., Bachman, B., Bacon, B., Baker, B., Belluardo, B., . . . Antonelli, A. (2022). Madagascar’s extraordinary biodiversity: Threats and opportunities. *Science, 378*(6623), eadf1466. 10.1126/science.adf1466
+
+Scherer, C., & Lavergne, F. (2020). *Plants in Danger*
+
+Stévart, T., Dauby, G., Lowry, P. P. 2., Blach-Overgaard, A., Droissart, V., Harris, D. J., Mackinder, B. A., Schatz, G. E., Sonké, B., Sosef, M. S. M., Svenning, J., Wieringa, J. J., & Couvreur, T. L. P. (2019). A third of the tropical African flora is potentially threatened with extinction. *Science Advances, 5*(11), eaax9444. 10.1126/sciadv.aax9444

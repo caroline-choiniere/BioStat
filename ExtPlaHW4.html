@@ -188,7 +188,7 @@ dbl (1): threatened
 ✖ dplyr::lag()      masks stats::lag()
 ✖ yardstick::spec() masks readr::spec()
 ✖ recipes::step()   masks stats::step()
-• Learn how to get started at https://www.tidymodels.org/start/</code></pre>
+• Search for functions across packages at https://www.tidymodels.org/find/</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>my_data_splits <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(plants, <span class="at">prop =</span> <span class="fl">0.5</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -219,20 +219,20 @@ dbl (1): threatened
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>exploratory_data<span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 57 × 2
-   country        n
-   &lt;chr&gt;      &lt;int&gt;
- 1 Argentina      1
- 2 Australia      1
- 3 Belgium        1
- 4 Bermuda        1
- 5 Bhutan         1
- 6 Bolivia        1
- 7 Brazil         6
- 8 Burundi        9
- 9 Cabo Verde     1
-10 Cameroon       2
-# ℹ 47 more rows</code></pre>
+<pre><code># A tibble: 53 × 2
+   country      n
+   &lt;chr&gt;    &lt;int&gt;
+ 1 Bermuda      1
+ 2 Bhutan       2
+ 3 Brazil       4
+ 4 Burundi      8
+ 5 Cameroon     2
+ 6 Canada       1
+ 7 Chile        1
+ 8 China        6
+ 9 Colombia     3
+10 Congo        4
+# ℹ 43 more rows</code></pre>
 </div>
 </div>
 <p>Installed and ran the kableExtra package to change the data display. The table presents the data adequately but there are too many countries to scroll through to get a full understanding of the table results. The next step is to graph the split dataset to see what results are displayed.</p>
@@ -257,64 +257,28 @@ Attaching package: 'kableExtra'</code></pre>
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">country</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">South America</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Oceania</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Europe</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">North America</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">Asia</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">South America</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">Africa</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Oceania</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Europe</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Argentina</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Australia</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Belgium</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">Bermuda</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">Bhutan</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Bolivia</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
@@ -322,9 +286,9 @@ Attaching package: 'kableExtra'</code></pre>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Brazil</td>
-<td style="text-align: right;">6</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
@@ -334,33 +298,33 @@ Attaching package: 'kableExtra'</code></pre>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">9</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Cabo Verde</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">Cameroon</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">Chile</td>
+<tr class="even">
+<td style="text-align: left;">Canada</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Chile</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
@@ -368,17 +332,17 @@ Attaching package: 'kableExtra'</code></pre>
 <tr class="even">
 <td style="text-align: left;">China</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Colombia</td>
-<td style="text-align: right;">4</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
@@ -388,25 +352,25 @@ Attaching package: 'kableExtra'</code></pre>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Cook Islands</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Cuba</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 </tr>
@@ -415,66 +379,48 @@ Attaching package: 'kableExtra'</code></pre>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Ecuador</td>
-<td style="text-align: right;">24</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">23</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Ethiopia</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">Fiji</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">France</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">French Polynesia</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Gabon</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Guinea</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">10</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Haiti</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
@@ -483,12 +429,30 @@ Attaching package: 'kableExtra'</code></pre>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">Guinea</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Haiti</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">India</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
@@ -504,76 +468,40 @@ Attaching package: 'kableExtra'</code></pre>
 <td style="text-align: left;">Italy</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Jamaica</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">Kenya</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">Madagascar</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">58</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">48</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">Malaysia</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Mexico</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Montserrat</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Myanmar</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Namibia</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">New Caledonia</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">7</td>
 <td style="text-align: right;">0</td>
@@ -582,9 +510,63 @@ Attaching package: 'kableExtra'</code></pre>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">New Zealand</td>
+<td style="text-align: left;">Mexico</td>
+<td style="text-align: right;">5</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Myanmar</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Namibia</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">New Caledonia</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nigeria</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Norfolk Island</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Panama</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
@@ -593,17 +575,17 @@ Attaching package: 'kableExtra'</code></pre>
 <tr class="odd">
 <td style="text-align: left;">Papua New Guinea</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Peru</td>
-<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
@@ -611,141 +593,123 @@ Attaching package: 'kableExtra'</code></pre>
 <tr class="odd">
 <td style="text-align: left;">Philippines</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Pitcairn</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">Portugal</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">Rwanda</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">Saint Helena, Ascension and Tristan da Cunha</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">Sao Tome and Principe</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">Seychelles</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">South Africa</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">8</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Spain</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">Spain</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">Swaziland</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Taiwan</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">Taiwan</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">Tanzania</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">8</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Trinidad and Tobago</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
+<td style="text-align: right;">14</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">Trinidad and Tobago</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">Uganda</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">United States</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">38</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Venezuela</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: left;">United States</td>
+<td style="text-align: right;">31</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
@@ -755,19 +719,19 @@ Attaching package: 'kableExtra'</code></pre>
 <tr class="odd">
 <td style="text-align: left;">Viet Nam</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Yemen</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
@@ -775,9 +739,9 @@ Attaching package: 'kableExtra'</code></pre>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
 </tr>
 </tbody>
 </table>
@@ -837,20 +801,20 @@ Attaching package: 'kableExtra'</code></pre>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>exploratory_data <span class="sc">%&gt;%</span> </span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(country, threat_HID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 62 × 3
-   country    threat_HID     n
-   &lt;chr&gt;           &lt;dbl&gt; &lt;int&gt;
- 1 Argentina           1     1
- 2 Australia           0     1
- 3 Belgium             0     1
- 4 Bermuda             1     1
- 5 Bhutan              0     1
- 6 Bolivia             0     1
- 7 Brazil              0     6
- 8 Burundi             0     9
- 9 Cabo Verde          0     1
-10 Cameroon            0     2
-# ℹ 52 more rows</code></pre>
+<pre><code># A tibble: 56 × 3
+   country  threat_HID     n
+   &lt;chr&gt;         &lt;dbl&gt; &lt;int&gt;
+ 1 Bermuda           1     1
+ 2 Bhutan            0     2
+ 3 Brazil            0     4
+ 4 Burundi           0     6
+ 5 Burundi           1     2
+ 6 Cameroon          0     2
+ 7 Canada            0     1
+ 8 Chile             0     1
+ 9 China             0     6
+10 Colombia          0     3
+# ℹ 46 more rows</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -870,19 +834,19 @@ dplyr 1.1.0.
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 250 × 3
-# Groups:   country [57]
-   country   threat_HID na.rm
-   &lt;chr&gt;          &lt;dbl&gt; &lt;lgl&gt;
- 1 Argentina          1 TRUE 
- 2 Australia          0 TRUE 
- 3 Belgium            0 TRUE 
- 4 Bermuda            1 TRUE 
- 5 Bhutan             0 TRUE 
- 6 Bolivia            0 TRUE 
- 7 Brazil             0 TRUE 
- 8 Brazil             0 TRUE 
- 9 Brazil             0 TRUE 
-10 Brazil             0 TRUE 
+# Groups:   country [53]
+   country threat_HID na.rm
+   &lt;chr&gt;        &lt;dbl&gt; &lt;lgl&gt;
+ 1 Bermuda          1 TRUE 
+ 2 Bhutan           0 TRUE 
+ 3 Bhutan           0 TRUE 
+ 4 Brazil           0 TRUE 
+ 5 Brazil           0 TRUE 
+ 6 Brazil           0 TRUE 
+ 7 Brazil           0 TRUE 
+ 8 Burundi          0 TRUE 
+ 9 Burundi          1 TRUE 
+10 Burundi          0 TRUE 
 # ℹ 240 more rows</code></pre>
 </div>
 </div>
@@ -907,20 +871,20 @@ dplyr 1.1.0.
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>exploratory_data <span class="sc">%&gt;%</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 57 × 2
-   country        n
-   &lt;chr&gt;      &lt;int&gt;
- 1 Argentina      1
- 2 Australia      1
- 3 Belgium        1
- 4 Bermuda        1
- 5 Bhutan         1
- 6 Bolivia        1
- 7 Brazil         6
- 8 Burundi        9
- 9 Cabo Verde     1
-10 Cameroon       2
-# ℹ 47 more rows</code></pre>
+<pre><code># A tibble: 53 × 2
+   country      n
+   &lt;chr&gt;    &lt;int&gt;
+ 1 Bermuda      1
+ 2 Bhutan       2
+ 3 Brazil       4
+ 4 Burundi      8
+ 5 Cameroon     2
+ 6 Canada       1
+ 7 Chile        1
+ 8 China        6
+ 9 Colombia     3
+10 Congo        4
+# ℹ 43 more rows</code></pre>
 </div>
 </div>
 <p>Used position “dodge” to try and make the labels offset across multiple rows without the other lines of code required. Rectifying this mistake in the code chunk below creates the dodge formatting but does not help decrease the label overlap.</p>
@@ -1916,6 +1880,13 @@ dplyr 1.1.0.
 <p>The data being worked with is from the International Union for Conservation of Nature (IUNC) Red List of Threatened Species (Version 2020-1). Florent Lavergne scrapped and prepared the <em>Plants in Danger</em> project to develop an info-graphic showing the biodiversity crisis plants are undergoing around the world. The data set is being used to explore the link between socio-economic activity and plant extinction. Determining if extinction risk varies by region is another potential use of the data set.</p>
 <p>The data set initial questions were broadened to potentially address general themes that could be seen in both the split data set and the full data set. Country and Continent plant extinction rates were compared using different graph and formatting techniques. The exploratory data was easiest to understand using a bar graph but needed some formatting help. In the exploratory data set, the highest plant extinction counts for Country and Continent were seen in Madagascar and Africa. The plants data set showed the same trend with Madagascar and Africa having the highest counts of extinct plants using the data taken from IUCN and scrapped by Florent Lavergne.</p>
 <p>The initial questions were refined into asking if there were a link between plant extinction rates variation and the socio-economic state of the Country and Continent. Further research and potential data collection could focus on if there are overlap between genus and species affected by higher plant extinction counts and threats. Variables like climate zones for each species in the country could add some insight to what places have higher rates of biodiversity crisis.</p>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<p>Feintrenie, L. (2014). Agro-industrial plantations in Central Africa, risks and opportunities. <em>Biodiversity and Conservation,&nbsp;23</em>(6), 1577–1589. 10.1007/s10531-014-0687-5</p>
+<p>Ralimanana, R., Perrigo, P., Smith, S., Borrell, B., Faurby, F., Rajaonah, R., Randriamboavonjy, R., Vorontsova, V., Cooke, C., Phelps, P., Sayol, S., Andela, A., Andermann, A., Andriamanohera, A., Andriambololonera, A., Bachman, B., Bacon, B., Baker, B., Belluardo, B., . . . Antonelli, A. (2022). Madagascar’s extraordinary biodiversity: Threats and opportunities. <em>Science,&nbsp;378</em>(6623), eadf1466. 10.1126/science.adf1466</p>
+<p>Scherer, C., &amp; Lavergne, F. (2020).&nbsp;<em>Plants in Danger</em></p>
+<p>Stévart, T., Dauby, G., Lowry, P. P. 2., Blach-Overgaard, A., Droissart, V., Harris, D. J., Mackinder, B. A., Schatz, G. E., Sonké, B., Sosef, M. S. M., Svenning, J., Wieringa, J. J., &amp; Couvreur, T. L. P. (2019). A third of the tropical African flora is potentially threatened with extinction. <em>Science Advances,&nbsp;5</em>(11), eaax9444. 10.1126/sciadv.aax9444</p>
 </section>
 
 </main>
